@@ -6,14 +6,18 @@ class Precise
 		# Every Vagrant virtual environment requires a box to build off of.
 		config.vm.box = "hashicorp/precise32"
 
+		# Apply each provisioning script specified in bootstrap/precise.yaml
 		settings["scripts"].each do |script|
 			config.vm.provision :shell, path: "#{path}/scripts/#{script}"
 		end
 
+		# Copy host gitconfig settings to vm environment
+		config.vm.provision "file", source: "~/.gitconfig", destination: ".gitconfig"
+
 		# Create a forwarded port mapping which allows access to a specific port
 		# within the machine from a port on the host machine. In the example below,
 		# accessing "localhost:8080" will access port 80 on the guest machine.
-		config.vm.network "forwarded_port", guest: 80, host: 8080 
+		config.vm.network "forwarded_port", guest: 80, host: 8080
     	config.vm.network "forwarded_port", guest: 3306, host: 33060 # MySQL
 		config.vm.network "forwarded_port", guest: 35729, host: 35729 # LiveReload
 
@@ -23,5 +27,7 @@ class Precise
 				type: folder["type"] ||= nil,
 				create: true
 		end
+
+		# config.vm.synced_folder "node_modules/", "/vagrant/node_modules/", disabled: true
 	end
 end
