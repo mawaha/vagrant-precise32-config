@@ -1,0 +1,13 @@
+---
+scripts:
+    - apache.sh
+    - node.sh
+    - grunt.sh
+    - gulp.sh
+    - vim.sh
+folders:
+    - map: /Dropbox (Carbon Crayon)/localhost/example
+      to: /home/vagrant/example
+sites:
+    - map: example.app
+      to: /home/vagrant/example
