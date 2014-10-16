@@ -26,8 +26,8 @@ class Precise
 			config.vm.synced_folder folder["map"], folder["to"],
 				type: folder["type"] ||= nil,
 				create: true
+			config.vm.synced_folder "#{folder["map"]}/node_modules/", "#{folder["to"]}/node_modules/", disabled: true
 		end
 
-		# config.vm.synced_folder "node_modules/", "/vagrant/node_modules/", disabled: true
 	end
 end
